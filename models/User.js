@@ -15,6 +15,6 @@ const User = db.define('User', {
         type:DataTypes.STRING,
         require: true,
     },
-})
+});
 
-module.exports = User
+module.exports = User;

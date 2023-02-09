@@ -11,10 +11,11 @@ const conn = require('./db/conn')
 
 //Models
 const Tought = require('./models/Tought')
-const User = require('./models/User')
+// const User = require('./models/User')
 
 //Routes
 const toughtRoutes = require('./routes/toughtRoutes')
+const authRoutes = require('./routes/authRoutes')
 
 //Controller
 const ToughtController = require('./controllers/toughtController')
@@ -29,16 +30,6 @@ app.use(
 )
 
 app.use(express.json())
-
-// public path
-app.use(express.static('public'))
-
-app.use((req, res, next) => {
-    if(req.session.userid){
-        res.locals.session = req.session
-    }
-    next()
-})
 
 // session middleware
 app.use(
@@ -62,14 +53,27 @@ app.use(
 //flash messages
 app.use(flash())
 
+// public path
+app.use(express.static('public'))
+
+app.use((req, res, next) => {
+    if(req.session.userid){
+        res.locals.session = req.session
+    }
+    next()
+})
+
+
+
 app.use('/toughts', toughtRoutes)
+app.use('/auth', authRoutes)
 
 // Direcionando para path /
 app.get('/', ToughtController.showToughts)
 
 conn
-    // .sync({force: true})
-    .sync()
+    .sync({force: true})
+    // .sync()
     .then(() => {
         app.listen(3000)
     })
