@@ -15,8 +15,13 @@
         <a href="/" id="logo"><img src="/img/toughts_logo.png" alt="Toughts" srcset=""></a>
     <ul>
         <li><a href="/">Pensamentos</a></li>
-        <li><a href="http://localhost:3000/auth/login">Entrar</a></li>
-        <li><a href="http://localhost:3000/auth/register">Registrar</a></li>
+        {{#if session.userid}}
+<li><a href="/toughts/dashboard">Dashboard</a></li>
+            <li><a href="/logout">Sair</a></li>
+        {{else}}
+            <li><a href="http://localhost:3000/auth/login">Entrar</a></li>
+            <li><a href="http://localhost:3000/auth/register">Registrar</a></li>
+        {{/if}}
     </ul>
     </nav>
     <div class="container">
